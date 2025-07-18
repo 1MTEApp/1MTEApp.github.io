@@ -10,6 +10,8 @@
             --text-color: #333;
             --primary-color: #4a6fa5;
             --secondary-color: #e7f1fe;
+            --accent-color: #ff6b6b;
+            --card-color: #ffffff;
             --shadow: rgba(0, 0, 0, 0.1);
         }
 
@@ -18,11 +20,14 @@
             --text-color: #e6e6ff;
             --primary-color: #6b8cff;
             --secondary-color: #2d3748;
+            --accent-color: #ff9e9e;
+            --card-color: #16213e;
             --shadow: rgba(0, 0, 0, 0.4);
         }
 
         * {
-            transition: background 0.3s, color 0.3s, transform 0.2s;
+            transition: background 0.3s, color 0.3s, transform 0.2s, box-shadow 0.3s;
+            box-sizing: border-box;
         }
 
         body {
@@ -42,6 +47,9 @@
             margin: 0 auto;
             padding: 2rem;
             flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         header {
@@ -49,27 +57,34 @@
             justify-content: space-between;
             align-items: center;
             padding: 1rem 0;
-            border-bottom: 2px solid var(--primary-color);
+            margin-bottom: 2rem;
         }
 
-        h1 {
+        .profile {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid var(--primary-color);
+            object-fit: cover;
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+        .profile-text h1 {
             color: var(--primary-color);
-            margin: 0;
+            margin: 0 0 0.5rem 0;
             font-size: 2.5rem;
         }
 
-        .content {
-            padding: 3rem 0;
-            text-align: center;
-        }
-
-        .intro {
-            font-size: 1.8rem;
-            margin-bottom: 3rem;
-            padding: 1.5rem;
-            border-radius: 15px;
-            background: var(--secondary-color);
-            box-shadow: 0 5px 15px var(--shadow);
+        .tagline {
+            font-size: 1.2rem;
+            color: var(--text-color);
+            opacity: 0.9;
         }
 
         .theme-switcher {
@@ -82,7 +97,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 6px var(--shadow);
+            box-shadow: 0 4px 8px var(--shadow);
         }
 
         .theme-switcher svg {
@@ -93,23 +108,99 @@
 
         .theme-switcher:hover {
             transform: translateY(-3px) rotate(10deg);
-            box-shadow: 0 6px 10px var(--shadow);
+            box-shadow: 0 6px 12px var(--shadow);
+        }
+
+        .main-content {
+            text-align: center;
+            padding: 3rem 2rem;
+            background: var(--card-color);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px var(--shadow);
+            margin: 2rem 0;
+        }
+
+        .intro-text {
+            font-size: 1.6rem;
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+            position: relative;
+        }
+
+        .intro-text:after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--accent-color);
+            border-radius: 2px;
+            margin: 2rem auto;
+        }
+
+        .quote {
+            font-style: italic;
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 1.5rem;
+            border-radius: 15px;
+            background: var(--secondary-color);
+            box-shadow: 0 5px 15px var(--shadow);
+        }
+
+        .github-section {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
         }
 
         .github-link {
-            display: inline-block;
-            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            text-decoration: none;
+            color: var(--text-color);
+            font-size: 1.3rem;
+            font-weight: 600;
+            padding: 1.2rem 2.5rem;
+            border-radius: 50px;
+            background: var(--secondary-color);
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px var(--shadow);
         }
 
-        .github-link svg {
-            width: 36px;
-            height: 36px;
-            fill: var(--primary-color);
+        .github-link:hover {
+            transform: scale(1.05);
+            background: var(--primary-color);
+            color: white;
         }
 
         .github-link:hover svg {
-            transform: scale(1.1);
-            fill: var(--text-color);
+            fill: white;
+            transform: rotate(10deg);
+        }
+
+        .github-link svg {
+            width: 40px;
+            height: 40px;
+            fill: var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+        .contact-info {
+            margin-top: 3rem;
+            font-size: 1.1rem;
+        }
+
+        .contact-info a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .contact-info a:hover {
+            color: var(--accent-color);
+            text-decoration: underline;
         }
 
         @media (max-width: 768px) {
@@ -119,18 +210,30 @@
                 gap: 1.5rem;
             }
 
-            h1 {
-                font-size: 2rem;
+            .profile {
+                flex-direction: column;
+                text-align: center;
             }
 
-            .intro {
+            .profile-text h1 {
+                font-size: 2.2rem;
+            }
+
+            .container {
+                padding: 1.5rem;
+            }
+
+            .intro-text {
                 font-size: 1.4rem;
-                padding: 1rem;
             }
 
-            .theme-switcher {
-                width: 45px;
-                height: 45px;
+            .quote {
+                font-size: 1.2rem;
+            }
+
+            .github-link {
+                font-size: 1.1rem;
+                padding: 1rem 2rem;
             }
         }
 
@@ -139,23 +242,36 @@
                 padding: 1rem;
             }
 
-            h1 {
-                font-size: 1.8rem;
+            .avatar {
+                width: 85px;
+                height: 85px;
             }
 
-            .intro {
+            .profile-text h1 {
+                font-size: 1.9rem;
+            }
+
+            .tagline {
+                font-size: 1rem;
+            }
+
+            .intro-text {
                 font-size: 1.2rem;
-                padding: 0.8rem;
             }
 
-            .theme-switcher {
-                width: 40px;
-                height: 40px;
+            .quote {
+                font-size: 1.1rem;
+                padding: 1.2rem;
             }
 
-            .theme-switcher svg {
-                width: 20px;
-                height: 20px;
+            .github-link {
+                font-size: 1rem;
+                padding: 0.9rem 1.8rem;
+            }
+
+            .github-link svg {
+                width: 32px;
+                height: 32px;
             }
         }
     </style>
@@ -163,7 +279,13 @@
 <body>
     <div class="container">
         <header>
-            <h1>1mteapp</h1>
+            <div class="profile">
+                <img src="images/profile_picture.jpeg" alt="Аватар 1mteapp" class="avatar">
+                <div class="profile-text">
+                    <h1>1mteapp</h1>
+                    <div class="tagline">Начинающий программист</div>
+                </div>
+            </div>
             <button class="theme-switcher" aria-label="Сменить тему">
                 <svg class="moon-icon" viewBox="0 0 24 24">
                     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
@@ -182,16 +304,27 @@
             </button>
         </header>
         
-        <main class="content">
-            <div class="intro">
-                Привет! Я начинающий программист, меня зовут 1mteapp.
+        <main class="main-content">
+            <p class="intro-text">
+                Привет! Я 1mteapp, начинающий программист. Сейчас активно изучаю веб-разработку и создаю свои первые проекты.
+            </p>
+            
+            <div class="quote">
+                "Программирование — это не только написание кода, это искусство решения задач и создания чего-то нового из ничего."
             </div>
             
-            <a href="https://github.com/1mteapp" target="_blank" class="github-link" aria-label="Мой GitHub">
-                <svg viewBox="0 0 24 24">
-                    <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
-                </svg>
-            </a>
+            <div class="github-section">
+                <a href="https://github.com/1mteapp" target="_blank" class="github-link">
+                    <svg viewBox="0 0 24 24">
+                        <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+                    </svg>
+                    Мой GitHub
+                </a>
+            </div>
+            
+            <div class="contact-info">
+                <p>Свяжитесь со мной: <a href="mailto:contact@1mteapp.example">contact@1mteapp.example</a></p>
+            </div>
         </main>
     </div>
 
@@ -201,11 +334,14 @@
         const moonIcon = themeButton.querySelector('.moon-icon');
         const sunIcon = themeButton.querySelector('.sun-icon');
         
+        // Проверяем сохраненную тему или системные настройки
         const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-            body.classList.add(savedTheme);
-            moonIcon.style.display = savedTheme === 'dark-theme' ? 'none' : 'block';
-            sunIcon.style.display = savedTheme === 'dark-theme' ? 'block' : 'none';
+        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        if (savedTheme === 'dark-theme' || (!savedTheme && systemPrefersDark)) {
+            body.classList.add('dark-theme');
+            moonIcon.style.display = 'none';
+            sunIcon.style.display = 'block';
         }
         
         themeButton.addEventListener('click', () => {
@@ -216,6 +352,14 @@
             sunIcon.style.display = isDark ? 'block' : 'none';
             
             localStorage.setItem('theme', isDark ? 'dark-theme' : '');
+        });
+
+        // Анимация при загрузке
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                document.querySelector('.main-content').style.opacity = '1';
+                document.querySelector('.main-content').style.transform = 'translateY(0)';
+            }, 100);
         });
     </script>
 </body>
