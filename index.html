@@ -330,6 +330,38 @@
             box-shadow: 0 8px 20px var(--shadow);
         }
 
+        .discord-icon {
+            position: relative;
+            cursor: default;
+        }
+
+        .discord-icon:hover {
+            transform: none;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-color);
+            box-shadow: none;
+        }
+
+        .discord-icon .tooltip {
+            position: absolute;
+            bottom: -40px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .discord-icon:hover .tooltip {
+            opacity: 1;
+        }
+
         /* Анимации */
         @keyframes float {
             0%, 100% { transform: translateY(0); }
@@ -476,15 +508,18 @@
                 </a>
             </div>
             
-          
+            <div class="contact-info pre-animate">
+                <p>Свяжитесь со мной: <a href="mailto:contact@1mteapp.example">contact@1mteapp.example</a></p>
+            </div>
             
             <div class="social-icons pre-animate">
-                <a href="besthttps.t.me" class="social-icon">
+                <a href="https://t.me/besthttps" target="_blank" class="social-icon" title="Мой Telegram">
                     <i class="fab fa-telegram"></i>
                 </a>
-                <a href="#" class="social-icon">
+                <span class="social-icon discord-icon" title="Discord (скоро)">
                     <i class="fab fa-discord"></i>
-                </a>
+                    <span class="tooltip">Скоро добавлю</span>
+                </span>
             </div>
         </main>
     </div>
