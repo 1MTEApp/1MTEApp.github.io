@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>1mteapp - Начинающий программист</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --bg-color: #f0f8ff;
@@ -13,25 +14,31 @@
             --accent-color: #ff6b6b;
             --card-color: #ffffff;
             --shadow: rgba(0, 0, 0, 0.1);
+            --gradient-start: #6a93cb;
+            --gradient-end: #a4bfef;
         }
 
         .dark-theme {
-            --bg-color: #1a1a2e;
+            --bg-color: #0f0c29;
             --text-color: #e6e6ff;
-            --primary-color: #6b8cff;
-            --secondary-color: #2d3748;
+            --primary-color: #8a9eff;
+            --secondary-color: #1e1b4b;
             --accent-color: #ff9e9e;
-            --card-color: #16213e;
-            --shadow: rgba(0, 0, 0, 0.4);
+            --card-color: #1a1837;
+            --shadow: rgba(0, 0, 0, 0.5);
+            --gradient-start: #24243e;
+            --gradient-end: #302b63;
         }
 
         * {
-            transition: background 0.3s, color 0.3s, transform 0.2s, box-shadow 0.3s;
+            transition: background 0.6s ease, color 0.6s ease, transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1), 
+                        box-shadow 0.6s ease, opacity 0.8s ease;
             box-sizing: border-box;
         }
 
         body {
-            background-color: var(--bg-color);
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            background-attachment: fixed;
             color: var(--text-color);
             font-family: 'Segoe UI', Tahoma, sans-serif;
             line-height: 1.6;
@@ -40,6 +47,7 @@
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            overflow-x: hidden;
         }
 
         .container {
@@ -52,157 +60,291 @@
             justify-content: center;
         }
 
+        /* Анимации при загрузке */
+        .pre-animate {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Шапка */
         header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             padding: 1rem 0;
             margin-bottom: 2rem;
+            animation-delay: 0.1s;
         }
 
         .profile {
             display: flex;
             align-items: center;
             gap: 1.5rem;
+            animation-delay: 0.2s;
         }
 
         .avatar {
-            width: 100px;
-            height: 100px;
+            width: 110px;
+            height: 110px;
             border-radius: 50%;
             border: 3px solid var(--primary-color);
             object-fit: cover;
-            box-shadow: 0 4px 12px var(--shadow);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.5s ease;
+        }
+
+        .avatar:hover {
+            transform: scale(1.05) rotate(5deg);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
         }
 
         .profile-text h1 {
-            color: var(--primary-color);
+            color: var(--text-color);
             margin: 0 0 0.5rem 0;
-            font-size: 2.5rem;
+            font-size: 2.6rem;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation-delay: 0.3s;
         }
 
         .tagline {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             color: var(--text-color);
             opacity: 0.9;
+            animation-delay: 0.4s;
         }
 
         .theme-switcher {
             background: var(--primary-color);
             border: none;
-            width: 50px;
-            height: 50px;
+            width: 55px;
+            height: 55px;
             border-radius: 50%;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 8px var(--shadow);
-        }
-
-        .theme-switcher svg {
-            width: 24px;
-            height: 24px;
-            fill: white;
+            box-shadow: 0 5px 15px var(--shadow);
+            animation-delay: 0.1s;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
         }
 
         .theme-switcher:hover {
-            transform: translateY(-3px) rotate(10deg);
-            box-shadow: 0 6px 12px var(--shadow);
+            transform: translateY(-5px) rotate(15deg);
+            box-shadow: 0 8px 20px var(--shadow);
         }
 
+        .theme-switcher svg {
+            width: 26px;
+            height: 26px;
+            fill: white;
+        }
+
+        /* Основной контент */
         .main-content {
             text-align: center;
-            padding: 3rem 2rem;
-            background: var(--card-color);
-            border-radius: 20px;
-            box-shadow: 0 10px 30px var(--shadow);
+            padding: 3rem 2.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
             margin: 2rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation-delay: 0.2s;
         }
 
         .intro-text {
-            font-size: 1.6rem;
+            font-size: 1.7rem;
             line-height: 1.8;
             margin-bottom: 2.5rem;
             position: relative;
+            font-weight: 300;
+            animation-delay: 0.3s;
+        }
+
+        .intro-text strong {
+            font-weight: 600;
         }
 
         .intro-text:after {
             content: '';
             display: block;
-            width: 80px;
+            width: 100px;
             height: 4px;
-            background: var(--accent-color);
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
             border-radius: 2px;
-            margin: 2rem auto;
+            margin: 2.5rem auto;
+            animation: lineGrow 1s forwards;
+            transform-origin: left;
+            transform: scaleX(0);
         }
 
         .quote {
             font-style: italic;
-            font-size: 1.3rem;
-            max-width: 600px;
-            margin: 2rem auto;
-            padding: 1.5rem;
-            border-radius: 15px;
-            background: var(--secondary-color);
-            box-shadow: 0 5px 15px var(--shadow);
+            font-size: 1.4rem;
+            max-width: 650px;
+            margin: 3rem auto;
+            padding: 2rem;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 8px 20px var(--shadow);
+            position: relative;
+            overflow: hidden;
+            animation-delay: 0.4s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .quote:before {
+            content: """;
+            position: absolute;
+            top: -20px;
+            left: 15px;
+            font-size: 6rem;
+            color: rgba(255, 255, 255, 0.1);
+            font-family: Georgia, serif;
+        }
+
+        .quote:after {
+            content: """;
+            position: absolute;
+            bottom: -40px;
+            right: 15px;
+            font-size: 6rem;
+            color: rgba(255, 255, 255, 0.1);
+            font-family: Georgia, serif;
         }
 
         .github-section {
             display: flex;
             justify-content: center;
             margin-top: 2rem;
+            animation-delay: 0.5s;
         }
 
         .github-link {
             display: flex;
             align-items: center;
-            gap: 0.8rem;
+            gap: 1rem;
             text-decoration: none;
             color: var(--text-color);
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             font-weight: 600;
-            padding: 1.2rem 2.5rem;
+            padding: 1.2rem 2.8rem;
             border-radius: 50px;
-            background: var(--secondary-color);
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px var(--shadow);
+            background: rgba(255, 255, 255, 0.15);
+            transition: all 0.5s ease;
+            box-shadow: 0 8px 20px var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
         }
 
         .github-link:hover {
-            transform: scale(1.05);
-            background: var(--primary-color);
-            color: white;
+            transform: translateY(-5px) scale(1.05);
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 12px 25px var(--shadow);
         }
 
         .github-link:hover svg {
-            fill: white;
-            transform: rotate(10deg);
+            fill: var(--accent-color);
+            transform: rotate(15deg) scale(1.2);
         }
 
         .github-link svg {
-            width: 40px;
-            height: 40px;
-            fill: var(--primary-color);
-            transition: all 0.3s ease;
+            width: 42px;
+            height: 42px;
+            fill: var(--text-color);
+            transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         .contact-info {
             margin-top: 3rem;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
+            animation-delay: 0.6s;
         }
 
         .contact-info a {
-            color: var(--primary-color);
+            color: var(--text-color);
             text-decoration: none;
             transition: all 0.3s ease;
+            font-weight: 500;
+            position: relative;
+            padding-bottom: 3px;
+        }
+
+        .contact-info a:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            transition: width 0.4s ease;
+        }
+
+        .contact-info a:hover:after {
+            width: 100%;
         }
 
         .contact-info a:hover {
-            color: var(--accent-color);
-            text-decoration: underline;
+            color: white;
         }
 
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 2rem;
+            animation-delay: 0.7s;
+        }
+
+        .social-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-color);
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: all 0.5s ease;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+        }
+
+        .social-icon:hover {
+            transform: translateY(-7px) rotate(10deg);
+            background: var(--primary-color);
+            color: white;
+            box-shadow: 0 8px 20px var(--shadow);
+        }
+
+        /* Анимации */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes lineGrow {
+            to { transform: scaleX(1); }
+        }
+
+        .floating {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* Адаптивность */
         @media (max-width: 768px) {
             header {
                 flex-direction: column;
@@ -216,7 +358,7 @@
             }
 
             .profile-text h1 {
-                font-size: 2.2rem;
+                font-size: 2.3rem;
             }
 
             .container {
@@ -228,65 +370,77 @@
             }
 
             .quote {
+                font-size: 1.3rem;
+                padding: 1.5rem;
+            }
+
+            .github-link {
                 font-size: 1.2rem;
+                padding: 1.1rem 2.3rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 1.2rem;
+            }
+
+            .avatar {
+                width: 95px;
+                height: 95px;
+            }
+
+            .profile-text h1 {
+                font-size: 2rem;
+            }
+
+            .tagline {
+                font-size: 1.1rem;
+            }
+
+            .main-content {
+                padding: 2rem 1.5rem;
+            }
+
+            .intro-text {
+                font-size: 1.3rem;
+            }
+
+            .quote {
+                font-size: 1.1rem;
+                padding: 1.2rem;
+                margin: 2rem auto;
             }
 
             .github-link {
                 font-size: 1.1rem;
                 padding: 1rem 2rem;
             }
-        }
-
-        @media (max-width: 480px) {
-            .container {
-                padding: 1rem;
-            }
-
-            .avatar {
-                width: 85px;
-                height: 85px;
-            }
-
-            .profile-text h1 {
-                font-size: 1.9rem;
-            }
-
-            .tagline {
-                font-size: 1rem;
-            }
-
-            .intro-text {
-                font-size: 1.2rem;
-            }
-
-            .quote {
-                font-size: 1.1rem;
-                padding: 1.2rem;
-            }
-
-            .github-link {
-                font-size: 1rem;
-                padding: 0.9rem 1.8rem;
-            }
 
             .github-link svg {
-                width: 32px;
-                height: 32px;
+                width: 35px;
+                height: 35px;
+            }
+
+            .social-icon {
+                width: 45px;
+                height: 45px;
+                font-size: 1.3rem;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <header>
-            <div class="profile">
-                <img src="images/profile_picture.jpeg" alt="Аватар 1mteapp" class="avatar">
+        <header class="pre-animate">
+            <div class="profile pre-animate">
+                <img src="images/profile_picture.jpeg" alt="Аватар 1mteapp" class="avatar floating">
                 <div class="profile-text">
-                    <h1>1mteapp</h1>
-                    <div class="tagline">Начинающий программист</div>
+                    <h1 class="pre-animate">1mteapp</h1>
+                    <div class="tagline pre-animate">Начинающий программист</div>
                 </div>
             </div>
-            <button class="theme-switcher" aria-label="Сменить тему">
+            <button class="theme-switcher pre-animate" aria-label="Сменить тему">
                 <svg class="moon-icon" viewBox="0 0 24 24">
                     <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
                 </svg>
@@ -304,57 +458,87 @@
             </button>
         </header>
         
-        <main class="main-content">
-            <p class="intro-text">
-                Привет! Я 1mteapp. Сейчас активно изучаю веб-разработку, python и создаю свои проекты.
+        <main class="main-content pre-animate">
+            <p class="intro-text pre-animate">
+                Привет! Я <strong>1mteapp</strong>, начинающий программист с горячим интересом к созданию современных веб-приложений.
             </p>
             
-            <div class="quote">
-                "Программирование — это не только написание кода, это искусство решения задач и создания чего-то нового из ничего."
+            <div class="quote pre-animate">
+                "Кодинг — это не просто написание инструкций для компьютера, это искусство создания цифровых миров и решения реальных проблем."
             </div>
             
-            <div class="github-section">
+            <div class="github-section pre-animate">
                 <a href="https://github.com/1mteapp" target="_blank" class="github-link">
                     <svg viewBox="0 0 24 24">
                         <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
                     </svg>
-                    Мой GitHub
+                    Посетить мой GitHub
+                </a>
+            </div>
+            
+          
+            
+            <div class="social-icons pre-animate">
+                <a href="#" class="social-icon">
+                    <i class="fab fa-telegram"></i>
+                </a>
+                <a href="#" class="social-icon">
+                    <i class="fab fa-discord"></i>
+                </a>
+                <a href="#" class="social-icon">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="#" class="social-icon">
+                    <i class="fab fa-twitter"></i>
                 </a>
             </div>
         </main>
     </div>
 
     <script>
-        const themeButton = document.querySelector('.theme-switcher');
-        const body = document.body;
-        const moonIcon = themeButton.querySelector('.moon-icon');
-        const sunIcon = themeButton.querySelector('.sun-icon');
-        
-        // Проверяем сохраненную тему или системные настройки
-        const savedTheme = localStorage.getItem('theme');
-        const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        
-        if (savedTheme === 'dark-theme' || (!savedTheme && systemPrefersDark)) {
-            body.classList.add('dark-theme');
-            moonIcon.style.display = 'none';
-            sunIcon.style.display = 'block';
-        }
-        
-        themeButton.addEventListener('click', () => {
-            body.classList.toggle('dark-theme');
-            const isDark = body.classList.contains('dark-theme');
-            
-            moonIcon.style.display = isDark ? 'none' : 'block';
-            sunIcon.style.display = isDark ? 'block' : 'none';
-            
-            localStorage.setItem('theme', isDark ? 'dark-theme' : '');
-        });
-
         // Анимация при загрузке
         document.addEventListener('DOMContentLoaded', () => {
-            setTimeout(() => {
-                document.querySelector('.main-content').style.opacity = '1';
-                document.querySelector('.main-content').style.transform = 'translateY(0)';
+            // Восстановление темы
+            const themeButton = document.querySelector('.theme-switcher');
+            const body = document.body;
+            const moonIcon = themeButton.querySelector('.moon-icon');
+            const sunIcon = themeButton.querySelector('.sun-icon');
+            
+            const savedTheme = localStorage.getItem('theme');
+            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            if (savedTheme === 'dark-theme' || (!savedTheme && systemPrefersDark)) {
+                body.classList.add('dark-theme');
+                moonIcon.style.display = 'none';
+                sunIcon.style.display = 'block';
+            }
+            
+            themeButton.addEventListener('click', () => {
+                body.classList.toggle('dark-theme');
+                const isDark = body.classList.contains('dark-theme');
+                
+                moonIcon.style.display = isDark ? 'none' : 'block';
+                sunIcon.style.display = isDark ? 'block' : 'none';
+                
+                localStorage.setItem('theme', isDark ? 'dark-theme' : '');
+            });
+
+            // Запуск анимации элементов
+            const animatedElements = document.querySelectorAll('.pre-animate');
+            
+            animatedElements.forEach((el, index) => {
+                setTimeout(() => {
+                    el.classList.add('animate');
+                }, 200 + index * 150);
+            });
+            
+            // Плавный градиентный фон
+            let angle = 0;
+            setInterval(() => {
+                angle = (angle + 0.2) % 360;
+                document.body.style.background = `
+                    linear-gradient(${angle}deg, var(--gradient-start), var(--gradient-end))
+                `;
             }, 100);
         });
     </script>
