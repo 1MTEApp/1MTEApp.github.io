@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Страница не найдена - 1mteapp</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: all 0.4s ease;
+        }
+
+        :root {
+            --bg-color: #f0f8ff;
+            --text-color: #333;
+            --primary-color: #4a6fa5;
+            --accent-color: #ff6b6b;
+            --card-color: #ffffff;
+            --shadow: rgba(0, 0, 0, 0.1);
+            --gradient-start: #6a93cb;
+            --gradient-end: #a4bfef;
+        }
+
+        .dark-theme {
+            --bg-color: #0f0c29;
+            --text-color: #e6e6ff;
+            --primary-color: #8a9eff;
+            --accent-color: #ff9e9e;
+            --card-color: #1a1837;
+            --shadow: rgba(0, 0, 0, 0.5);
+            --gradient-start: #24243e;
+            --gradient-end: #302b63;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            background-attachment: fixed;
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        /* Анимации */
+        .pre-animate {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .animate {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Стили для ошибки 404 */
+        .error-content {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            padding: 3rem 2rem;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .error-content::before {
+            content: "404";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 25vw;
+            font-weight: 900;
+            opacity: 0.05;
+            z-index: 0;
+            line-height: 1;
+        }
+
+        .error-code {
+            font-size: 8rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+            text-shadow: 3px 3px 0 rgba(0, 0, 0, 0.1);
+            position: relative;
+            z-index: 1;
+        }
+
+        .error-title {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .error-description {
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin: 0 auto 2.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .home-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            text-decoration: none;
+            color: var(--text-color);
+            font-size: 1.2rem;
+            font-weight: 600;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.15);
+            transition: all 0.5s ease;
+            box-shadow: 0 8px 20px var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            position: relative;
+            z-index: 1;
+        }
+
+        .home-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            background: rgba(255, 255, 255, 0.25);
+            box-shadow: 0 12px 25px var(--shadow);
+        }
+
+        /* Анимации для элементов ошибки */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .floating {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .spinning {
+            animation: spin 15s linear infinite;
+            display: inline-block;
+        }
+
+        /* Дополнительные элементы */
+        .error-icons {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .error-icon {
+            font-size: 3rem;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .error-icon:nth-child(1) { color: #ff6b6b; animation-delay: 0.1s; }
+        .error-icon:nth-child(2) { color: #4a6fa5; animation-delay: 0.2s; }
+        .error-icon:nth-child(3) { color: #6b8cff; animation-delay: 0.3s; }
+
+        .search-box {
+            max-width: 500px;
+            margin: 2rem auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border-radius: 50px;
+            border: none;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: var(--text-color);
+            font-size: 1rem;
+            padding-right: 50px;
+        }
+
+        .search-box button {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: transparent;
+            border: none;
+            color: var(--text-color);
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        /* Кнопка переключения темы */
+        .theme-switcher {
+            background: var(--primary-color);
+            border: none;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px var(--shadow);
+            position: absolute;
+            top: 30px;
+            right: 30px;
+            z-index: 10;
+        }
+
+        .theme-switcher:hover {
+            transform: translateY(-5px) rotate(15deg);
+            box-shadow: 0 8px 20px var(--shadow);
+        }
+
+        .theme-switcher svg {
+            width: 26px;
+            height: 26px;
+            fill: white;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .error-code {
+                font-size: 6rem;
+            }
+            
+            .error-title {
+                font-size: 2rem;
+            }
+            
+            .error-description {
+                font-size: 1.1rem;
+            }
+            
+            .home-btn {
+                font-size: 1.1rem;
+                padding: 0.9rem 2rem;
+            }
+            
+            .theme-switcher {
+                top: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 1rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+            
+            .error-content {
+                padding: 2rem 1.5rem;
+            }
+            
+            .error-code {
+                font-size: 4rem;
+            }
+            
+            .error-title {
+                font-size: 1.7rem;
+            }
+            
+            .error-description {
+                font-size: 1rem;
+            }
+            
+            .home-btn {
+                font-size: 1rem;
+                padding: 0.8rem 1.8rem;
+            }
+            
+            .theme-switcher {
+                top: 15px;
+                right: 15px;
+                width: 45px;
+                height: 45px;
+            }
+        }
+    </style>
+</head>
+<body class="pre-animate">
+    <button class="theme-switcher" aria-label="Сменить тему">
+        <svg class="moon-icon" viewBox="0 0 24 24">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+        </svg>
+        <svg class="sun-icon" viewBox="0 0 24 24" style="display:none">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+        </svg>
+    </button>
+    
+    <div class="container">
+        <div class="error-content">
+            <div class="error-icons">
+                <div class="error-icon floating">
+                    <i class="fas fa-unlink"></i>
+                </div>
+                <div class="error-icon floating" style="animation-delay: 0.2s">
+                    <i class="fas fa-search"></i>
+                </div>
+                <div class="error-icon floating" style="animation-delay: 0.4s">
+                    <i class="fas fa-bug"></i>
+                </div>
+            </div>
+            
+            <div class="error-code">404</div>
+            <h1 class="error-title">Страница не найдена</h1>
+            <p class="error-description">
+                Кажется, вы забрели не туда. Возможно, страница была перемещена или удалена. 
+                Попробуйте вернуться на главную или воспользуйтесь поиском.
+            </p>
+            
+            <div class="search-box">
+                <input type="text" placeholder="Поиск по сайту...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+            
+            <a href="index.html" class="home-btn">
+                <i class="fas fa-home"></i>
+                Вернуться на главную
+            </a>
+        </div>
+    </div>
+
+    <script>
+        // Анимация при загрузке
+        document.addEventListener('DOMContentLoaded', () => {
+            // Восстановление темы
+            const themeButton = document.querySelector('.theme-switcher');
+            const body = document.body;
+            const moonIcon = themeButton.querySelector('.moon-icon');
+            const sunIcon = themeButton.querySelector('.sun-icon');
+            
+            const savedTheme = localStorage.getItem('theme');
+            const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            
+            if (savedTheme === 'dark-theme' || (!savedTheme && systemPrefersDark)) {
+                body.classList.add('dark-theme');
+                moonIcon.style.display = 'none';
+                sunIcon.style.display = 'block';
+            }
+            
+            themeButton.addEventListener('click', () => {
+                body.classList.toggle('dark-theme');
+                const isDark = body.classList.contains('dark-theme');
+                
+                moonIcon.style.display = isDark ? 'none' : 'block';
+                sunIcon.style.display = isDark ? 'block' : 'none';
+                
+                localStorage.setItem('theme', isDark ? 'dark-theme' : '');
+            });
+
+            // Запуск анимации элементов
+            setTimeout(() => {
+                body.classList.add('animate');
+                
+                const elements = document.querySelectorAll('.error-code, .error-title, .error-description, .search-box, .home-btn');
+                elements.forEach((el, index) => {
+                    setTimeout(() => {
+                        el.classList.add('animate');
+                    }, 200 + index * 150);
+                });
+            }, 100);
+            
+            // Плавный градиентный фон
+            let angle = 0;
+            setInterval(() => {
+                angle = (angle + 0.2) % 360;
+                document.body.style.background = `
+                    linear-gradient(${angle}deg, var(--gradient-start), var(--gradient-end))
+                `;
+            }, 100);
+            
+            // Поиск по сайту (базовый функционал)
+            const searchInput = document.querySelector('.search-box input');
+            const searchButton = document.querySelector('.search-box button');
+            
+            searchButton.addEventListener('click', () => {
+                if (searchInput.value.trim() !== '') {
+                    alert(`Поиск по запросу: "${searchInput.value}"\n\n(Это демонстрационная функция. На реальном сайте здесь будет поиск по вашему контенту.)`);
+                }
+            });
+            
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    searchButton.click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
